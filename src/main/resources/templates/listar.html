@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th=https://www.thymeleaf.org>
+<head th:replace="layout/layout :: head">
+
+</head>
+<body class="bg-secondary">
+
+<header th:replace="layout/layout :: header"></header>
+
+
+ <div class="container">
+  <div class="card bg-secondary">
+    <div class="card-header bg-secondary" th:text="${titulo}" style="font-size: 30px; font-weight:bold;"></div>
+      <div class="card-body">
+
+ 	<h4 class="card-title">
+ 	<a th:href="@{/form}" type="button" class="btn btn-dark" >Crear Cliente</a>
+ 	</h4>
+	<table class="table table-hover table-dark py-4 bg-secondary">
+	
+	<thead class="thead-dark">
+	<tr> 
+	
+	<th>Id</th>
+	
+	<th>Nombre</th>
+	
+	<th>Apellido</th>
+	
+	<th>Email</th>
+	
+	<th>Fecha</th>
+	<th>Editar</th>
+	<th>Eliminar</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	<tr th:each="cliente: ${clientes}">
+	<td> <nav > <a class="btn btn-primary btn-xs" th:href="@{/ver/} + ${cliente.id}" th:text="${cliente.id}"></a> </nav> </td>
+	<td th:text="${cliente.nombre}"></td>
+	<td th:text="${cliente.apellido}"></td>
+	<td th:text="${cliente.email}"></td>
+	<td th:text="${cliente.createAt}"></td>
+	<td><a  class="btn btn-primary btn-xs" th:href="@{/form/} + ${cliente.id}" th:text="'Editar'"></a></td>
+	<td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/} + ${cliente.id}" th:text="'Eliminar'" onclick="return confirm('Estás seguro que queres eliminar?');"></a></td>
+	</tr>
+	
+	</tbody>
+
+	</table>
+	<nav th:replace="paginatorNav :: paginator"></nav>
+</div>
+</div>
+</div>
+<footer th:replace="layout/layout :: footer"></footer>
+	
+	<div th:replace="layout/layout :: javascript"></div>
+</body>
+</html>

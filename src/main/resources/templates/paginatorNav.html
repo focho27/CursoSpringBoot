@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<body>
+
+<nav th:fragment="paginator" >
+
+<ul class="pagination" >
+<li class="page-item bg-dark" th:class="${page.first? 'page-item disabled': 'page-item'}">
+<span class="page-link  bg-dark" th:if="${page.isFirst()}">Primera</span>
+<a class="page-link  bg-dark" th:if="${not page.isFirst()}" th:href="@{${page.url}(page=0)}">Primera</a>
+</li>
+
+<li class="page-item bg-dark" th:class="${!page.isHasPrevious()? 'page-item disabled': 'page-item'}">
+<span class="page-link bg-dark" th:if="${!page.isHasPrevious()}" >&laquo;</span>
+<a class="page-link bg-dark" th:if="${page.isHasPrevious()}" th:href="@{${page.getUrl()}(page=${page.getPaginaActual()-2})}">&laquo;</a>
+</li>
+
+
+<li class="page-item bg-dark border-none" th:each="item: ${page.getPaginas()}" th:class="${item.isActual()? 'page-item active': 'page-item'}">
+<span class="page-link  bg-dark" th:if="${item.isActual()}" th:text="${item.getNum()}"></span>
+<a class="page-link  bg-dark" th:if="${!item.isActual()}" th:href="@{${page.getUrl()}(page=${item.getNum()-1})}" th:text="${item.getNum()}"></a>
+</li>
+
+<li class="page-item bg-dark border-none" th:class="${!page.isHasNext()? 'page-item disabled': 'page-item'}">
+<span class="page-link  bg-dark" th:if="${!page.isHasNext()}">&raquo;</span>
+<a class="page-link  bg-dark" th:if="${page.isHasNext()}" th:href="@{${page.getUrl()}(page=${page.getPaginaActual()})}">&raquo;</a></li>
+
+<li class="page-item bg-dark border-none" th:class="${page.isLast()? 'page-item disabled': 'page-item'}">
+<span class="page-link  bg-dark" th:if="${page.isLast()}">&Uacute;ltima</span>
+<a class="page-link  bg-dark" th:if="${!page.isLast()}" th:href="@{${page.getUrl()}(page=${page.getTotalDePaginas()-1})}">&Uacute;ltima</a></li>
+
+</ul>
+
+</nav>
+
+</body>
+</html>
